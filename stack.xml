@@ -1,0 +1,12 @@
+<stack>
+  <description brief="nmea_gps_driver">nmea_gps_driver</description>
+  <author>Maintained by Steven Martin</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/nmea_gps_driver</url>
+  <depend stack="common_msgs" /> <!-- geometry_msgs, sensor_msgs -->
+  <depend stack="ros" />
+  <depend stack="ros_comm" /> <!-- rospy, std_msgs -->
+  <version>0.0.1</version>
+
+</stack>
