@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 import roslib
-roslib.load_manifest('cyphy_ros_gps')
+roslib.load_manifest('nmea_gps_driver')
 import rospy
 from sensor_msgs.msg import NavSatFix
 from geometry_msgs.msg import TwistStamped
-from cyphy_ros_gps.msg import GPStime
+#from cyphy_ros_gps.msg import GPStime
 
 import serial, string, math
 import decimal as dec
@@ -14,18 +14,18 @@ if __name__ == "__main__":
     #init publisher
     gpspub = rospy.Publisher('GPS', NavSatFix)
     gpsVelPub = rospy.Publisher('GPSVel',TwistStamped)
-    gpstimePub = rospy.Publisher('GPStime', GPStime)
-    rospy.init_node('GPSNode')
+#    gpstimePub = rospy.Publisher('GPStime', GPStime)
+    rospy.init_node('nmea_gps_driver')
     #Init GPS port
     GPSport = rospy.get_param('~port','/dev/ttyUSB0')
     GPSrate = rospy.get_param('~rate',4800)
-    frame_id = rospy.get_param('~frame_id','GPS')
+    frame_id = rospy.get_param('~frame_id','gps')
     navData = NavSatFix()
     gpsVel = TwistStamped()
-    gpstime = GPStime()
+    #gpstime = GPStime()
     navData.header.frame_id = frame_id
     gpsVel.header.frame_id = frame_id
-    gpstime.header.frame_id = frame_id
+    #gpstime.header.frame_id = frame_id
     GPSLock = False
     try:
         GPS = serial.Serial(port=GPSport, baudrate=GPSrate, timeout=2)
@@ -59,8 +59,8 @@ if __name__ == "__main__":
                         navData.header.stamp = gpsVel.header.stamp
                         navData.status.service = 1
                         
-                        gpstime.header.stamp = gpsVel.header.stamp
-                        gpstime.gpstime = rospy.Time(float(fields[1]))
+                        #gpstime.header.stamp = gpsVel.header.stamp
+                        #gpstime.gpstime = rospy.Time(float(fields[1]))
 
                         longitude = dec.Decimal('%.10f' % (dec.Decimal(fields[5][0:3]) + dec.Decimal(fields[5][3:fields[5].__len__()]) / 60))
                         if fields[6] == 'W':
@@ -75,7 +75,7 @@ if __name__ == "__main__":
                         navData.longitude = longitude
                         navData.position_covariance_type = NavSatFix.COVARIANCE_TYPE_UNKNOWN
                         gpspub.publish(navData)
-                        gpstimePub.publish(gpstime)
+                        #gpstimePub.publish(gpstime)
           
                 else:
                     pass
