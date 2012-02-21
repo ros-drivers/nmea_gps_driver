@@ -1,5 +1,7 @@
 <stack>
-  <description brief="nmea_gps_driver">nmea_gps_driver</description>
+  <description brief="nmea_gps_driver">
+	Package to parse NMEA strings and publish a very simple GPS messgae. Does not require the GPSD deamon.
+  </description>
   <author>Maintained by Eric Perko</author>
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
