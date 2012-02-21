@@ -2,7 +2,7 @@
   <description brief="nmea_gps_driver">
 	Package to parse NMEA strings and publish a very simple GPS messgae. Does not require the GPSD deamon.
   </description>
-  <author>Steven Martin</author>
+  <author>Steven Martin, Eric Perko</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/nmea_gps_driver</url>

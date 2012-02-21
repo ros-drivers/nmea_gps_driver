@@ -1,6 +1,6 @@
 <stack>
   <description brief="nmea_gps_driver">nmea_gps_driver</description>
-  <author>Maintained by Steven Martin</author>
+  <author>Maintained by Eric Perko</author>
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/nmea_gps_driver</url>
