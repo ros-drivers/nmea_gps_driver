@@ -1,6 +1,6 @@
 <package>
   <description brief="nmea_gps_driver">
-	Package to parse NMEA strings and publish a very simple GPS message. Does not require the GPSD deamon.
+	Package to parse NMEA strings and publish standard ROS GPS messages. This package does not require the GPSD deamon.
   </description>
   <author>Steven Martin, Eric Perko</author>
   <license>BSD</license>
