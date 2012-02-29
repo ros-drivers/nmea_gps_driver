@@ -56,6 +56,15 @@ def convertNMEATimeToROS(nmea_utc):
     unix_time = calendar.timegm(tuple(utc_list))
     return rospy.Time.from_sec(unix_time)
 
+#Add the tf_prefix to the given frame id
+def addTFPrefix(frame_id):
+    prefix = "/"
+    prefix_param = rospy.search_param("tf_prefix")
+    if prefix_param:
+        prefix = rospy.get_param(prefix_param)
+
+    return "%s/%s" % (prefix, frame_id)
+
 if __name__ == "__main__":
     #init publisher
     rospy.init_node('nmea_gps_driver')
@@ -66,6 +75,9 @@ if __name__ == "__main__":
     GPSport = rospy.get_param('~port','/dev/ttyUSB0')
     GPSrate = rospy.get_param('~baud',4800)
     frame_id = rospy.get_param('~frame_id','gps')
+    if frame_id[0] != "/":
+        frame_id = addTFPrefix(frame_id)
+
     time_ref_source = rospy.get_param('~time_ref_source', frame_id)
     useRMC = rospy.get_param('~useRMC', False)
     #useRMC == True -> generate info from RMC+GSA
