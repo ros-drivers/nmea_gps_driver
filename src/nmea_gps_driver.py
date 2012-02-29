@@ -58,7 +58,7 @@ def convertNMEATimeToROS(nmea_utc):
 
 #Add the tf_prefix to the given frame id
 def addTFPrefix(frame_id):
-    prefix = "/"
+    prefix = ""
     prefix_param = rospy.search_param("tf_prefix")
     if prefix_param:
         prefix = rospy.get_param(prefix_param)
