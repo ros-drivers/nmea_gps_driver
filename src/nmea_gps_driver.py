@@ -62,6 +62,8 @@ def addTFPrefix(frame_id):
     prefix_param = rospy.search_param("tf_prefix")
     if prefix_param:
         prefix = rospy.get_param(prefix_param)
+        if prefix[0] != "/":
+            prefix = "/%s" % prefix
 
     return "%s/%s" % (prefix, frame_id)
 
