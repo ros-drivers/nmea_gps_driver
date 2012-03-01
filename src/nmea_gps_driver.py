@@ -100,7 +100,7 @@ if __name__ == "__main__":
     navData = NavSatFix()
     gpsVel = TwistStamped()
     gpstime = TimeReference()
-    gpstime.source = frame_id
+    gpstime.source = time_ref_source
     navData.header.frame_id = frame_id
     gpsVel.header.frame_id = frame_id
     GPSLock = False
