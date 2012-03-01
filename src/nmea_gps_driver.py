@@ -67,6 +67,19 @@ def addTFPrefix(frame_id):
 
     return "%s/%s" % (prefix, frame_id)
 
+#Check the NMEA sentence checksum. Return True if passes and False if failed
+def check_checksum(nmea_sentence):
+    split_sentence = nmea_sentence.split('*')
+    transmitted_checksum = split_sentence[1].strip()
+    
+    #Remove the $ at the front
+    data_to_checksum = split_sentence[0][1:]
+    checksum = 0
+    for c in data_to_checksum:
+        checksum ^= ord(c)
+
+    return ("%02X" % checksum)  == transmitted_checksum.upper()
+
 if __name__ == "__main__":
     #init publisher
     rospy.init_node('nmea_gps_driver')
@@ -97,6 +110,11 @@ if __name__ == "__main__":
         while not rospy.is_shutdown():
             #read GPS line
             data = GPS.readline()
+
+            if not check_checksum(data):
+                rospy.logerr("Received a sentence with an invalid checksum. Sentence was: %s" % data)
+                continue
+
             timeNow = rospy.get_rostime()
             fields = data.split(',')
             for i in fields:
