@@ -4,7 +4,7 @@
   </description>
   <author>Maintained by Eric Perko</author>
   <license>BSD</license>  
-  <review status="unreviewed" notes=""/>
+  <review status="API Reviewed" notes=""/>
   <url>http://ros.org/wiki/nmea_gps_driver</url>
   <depend stack="common_msgs" /> <!-- geometry_msgs, sensor_msgs -->
   <depend stack="ros" />
