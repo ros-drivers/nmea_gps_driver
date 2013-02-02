@@ -1,4 +1,0 @@
-python-serial:
-  ubuntu:
-    apt:
-      packages: python-serial
