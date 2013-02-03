@@ -115,7 +115,7 @@ if __name__ == "__main__":
             data = GPS.readline()
 
             if not check_checksum(data):
-                rospy.logerr("Received a sentence with an invalid checksum. Sentence was: %s" % data)
+                rospy.logwarn("Received a sentence with an invalid checksum. Sentence was: %s" % data)
                 continue
 
             timeNow = rospy.get_rostime()
