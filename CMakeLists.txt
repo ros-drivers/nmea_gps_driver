@@ -82,10 +82,10 @@ catkin_package(
 
 ## Mark executable scripts (Python etc.) for installation
 ## not required for python when using catkin_python_setup()
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+ install(PROGRAMS
+   scripts/nmea_gps_driver.py
+   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+ )
 
 ## Mark executables and/or libraries for installation
 # install(TARGETS nmea_gps_driver nmea_gps_driver_node
