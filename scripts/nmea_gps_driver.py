@@ -32,13 +32,13 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-import roslib
-roslib.load_manifest('nmea_gps_driver')
 import rospy
 from sensor_msgs.msg import NavSatFix
 from sensor_msgs.msg import NavSatStatus
 from sensor_msgs.msg import TimeReference
 from geometry_msgs.msg import TwistStamped
+
+from libnmea_gps_driver.checksum_utils import check_nmea_checksum
 
 import serial, string, math, time, calendar
 
@@ -115,7 +115,7 @@ if __name__ == "__main__":
             #read GPS line
             data = GPS.readline()
 
-            if not check_checksum(data):
+            if not check_nmea_checksum(data):
                 rospy.logwarn("Received a sentence with an invalid checksum. Sentence was: %s" % data)
                 continue
 
