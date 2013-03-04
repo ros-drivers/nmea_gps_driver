@@ -39,6 +39,7 @@ from sensor_msgs.msg import TimeReference
 from geometry_msgs.msg import TwistStamped
 
 from libnmea_gps_driver.checksum_utils import check_nmea_checksum
+import libnmea_gps_driver.parser
 
 import serial, string, math, time, calendar
 
@@ -97,7 +98,7 @@ if __name__ == "__main__":
         #Read in GPS
         while not rospy.is_shutdown():
             #read GPS line
-            data = GPS.readline()
+            data = GPS.readline().strip()
 
             if not check_nmea_checksum(data):
                 rospy.logwarn("Received a sentence with an invalid checksum. Sentence was: %s" % data)
@@ -153,10 +154,18 @@ if __name__ == "__main__":
                             pass
                             #print data
                 else:
+                    #print "Parsing NMEA sentence"
+                    #print data
+                    sentence = libnmea_gps_driver.parser.parse_nmea_sentence(data)
+                    #print "Parsed NMEA sentence"
+                    #print sentence
+                    if not sentence:
+                        continue
                     #Use GGA
                     #No /vel output from just GGA
-                    if 'GGA' in fields[0]:
-                        gps_quality = int(fields[6])
+                    if 'GGA' in sentence:
+                        data_map = sentence["GGA"]
+                        gps_quality = data_map['fix_type']
                         if gps_quality == 0:
                             navData.status.status = NavSatStatus.STATUS_NO_FIX
                         elif gps_quality == 1:
@@ -173,29 +182,28 @@ if __name__ == "__main__":
 
                         navData.header.stamp = timeNow
 
-                        latitude = float(fields[2][0:2]) + float(fields[2][2:])/60
-                        if fields[3] == 'S':
+                        latitude = data_map["latitude"]
+                        if data_map["latitude_direction"] == 'S':
                             latitude = -latitude
                         navData.latitude = latitude
 
-                        longitude = float(fields[4][0:3]) + float(fields[4][3:])/60
-                        if fields[5] == 'W':
+                        longitude = data_map["longitude"]
+                        if data_map["longitude_direction"] == 'W':
                             longitude = -longitude
                         navData.longitude = longitude
 
-                        hdop = float(fields[8])
+                        hdop = data_map["hdop"]
                         navData.position_covariance[0] = hdop**2
                         navData.position_covariance[4] = hdop**2
                         navData.position_covariance[8] = (2*hdop)**2 #FIX ME
                         navData.position_covariance_type = NavSatFix.COVARIANCE_TYPE_APPROXIMATED
 
                         #Altitude is above ellipsoid, so adjust for mean-sea-level
-                        altitude = float(fields[9]) + float(fields[11])
+                        altitude = data_map["altitude"] + data_map["mean_sea_level"]
                         navData.altitude = altitude
 
-
                         gpstime.header.stamp = timeNow
-                        gpstime.time_ref = convertNMEATimeToROS(fields[1])
+                        gpstime.time_ref = rospy.Time.from_sec(data_map["utc_time"])
 
                         gpspub.publish(navData)
                         gpstimePub.publish(gpstime)
