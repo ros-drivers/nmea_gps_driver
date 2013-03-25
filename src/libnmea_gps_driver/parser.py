@@ -33,6 +33,7 @@
 import re
 import time
 import calendar
+import math
 
 def convert_latitude(field):
     return float(field[0:2])+float(field[2:])/60.0
@@ -53,6 +54,17 @@ def convert_time(nmea_utc):
     unix_time = calendar.timegm(tuple(utc_list))
     return unix_time
 
+def convert_status_flag(status_flag):
+    if status_flag == "A":
+        return True
+    elif status_flag == "V":
+        return False
+    else:
+        return False
+
+def convert_knots_to_mps(knots):
+    return knots*0.514444444444
+
 """Format for this is a sentence identifier (e.g. "GGA") as the key, with a
 tuple of tuples where each tuple is a field name, conversion function and index
 into the split sentence"""
@@ -67,8 +79,18 @@ parse_maps = {
             ("mean_sea_level", float, 11),
             ("hdop", float, 8),
             ("num_satellites", int, 7),
-            ("utc_time", convert_time, 1)
+            ("utc_time", convert_time, 1),
             ],
+        "RMC": [
+            ("utc_time", convert_time, 1),
+            ("fix_valid", convert_status_flag, 2),
+            ("latitude", convert_latitude, 3),
+            ("latitude_direction", str, 4),
+            ("longitude", convert_longitude, 5),
+            ("longitude_direction", str, 6),
+            ("speed", convert_knots_to_mps, 7),
+            ("true_course", math.radians, 8),
+            ]
         }
 
 def parse_nmea_sentence(nmea_sentence):
