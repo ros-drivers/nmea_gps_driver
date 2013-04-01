@@ -63,7 +63,11 @@ def convert_status_flag(status_flag):
         return False
 
 def convert_knots_to_mps(knots):
-    return knots*0.514444444444
+    return float(knots)*0.514444444444
+
+# Need this wrapper because math.radians doesn't auto convert inputs
+def convert_deg_to_rads(degs):
+    return math.radians(float(degs))
 
 """Format for this is a sentence identifier (e.g. "GGA") as the key, with a
 tuple of tuples where each tuple is a field name, conversion function and index
@@ -89,7 +93,7 @@ parse_maps = {
             ("longitude", convert_longitude, 5),
             ("longitude_direction", str, 6),
             ("speed", convert_knots_to_mps, 7),
-            ("true_course", math.radians, 8),
+            ("true_course", convert_deg_to_rads, 8),
             ]
         }
 
