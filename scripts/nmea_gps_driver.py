@@ -71,7 +71,7 @@ def addTFPrefix(frame_id):
 if __name__ == "__main__":
     #init publisher
     rospy.init_node('nmea_gps_driver')
-    rospy.logwarn("nmea_gps_driver.py is deprecated and planned for removal in I-Turtle. See ros.org/wiki/nmea_gps_driver for more details.")
+    rospy.logwarn("nmea_gps_driver.py is deprecated and planned for removal in I-Turtle. Use nmea_serial_driver.py instead. See ros.org/wiki/nmea_gps_driver for more details.")
     gpspub = rospy.Publisher('fix', NavSatFix)
     gpsVelPub = rospy.Publisher('vel',TwistStamped)
     gpstimePub = rospy.Publisher('time_reference', TimeReference)
