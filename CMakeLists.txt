@@ -83,6 +83,7 @@ catkin_package(
    scripts/nmea_gps_driver.py
    scripts/nmea_serial_driver.py
    scripts/nmea_topic_driver.py
+   scripts/nmea_topic_serial_reader.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
