@@ -54,7 +54,7 @@ class RosNMEADriver(object):
 
     # Returns True if we successfully did something with the passed in
     # nmea_string
-    def add_sentence(self, nmea_string):
+    def add_sentence(self, nmea_string, timestamp=None):
         if not check_nmea_checksum(nmea_string):
             rospy.logwarn("Received a sentence with an invalid checksum. \
                 Sentence was: %s" % nmea_string)
@@ -66,7 +66,10 @@ class RosNMEADriver(object):
                 nmea_string)
             return False
 
-        current_time = rospy.get_rostime()
+        if timestamp:
+            current_time = timestamp
+        else:
+            current_time = rospy.get_rostime()
         current_fix = NavSatFix()
         current_fix.header.stamp = current_time
         current_fix.header.frame_id = self.frame_id
