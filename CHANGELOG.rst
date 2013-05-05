@@ -2,7 +2,7 @@
 Change log for nmea_gps_driver package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.3.0 (forthcoming)
+0.3.0 (2013-05-05)
 -------------------
 * Initial release for Hydro
 * Converted to Catkin
