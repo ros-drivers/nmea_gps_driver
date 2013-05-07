@@ -2,6 +2,10 @@
 Change log for nmea_gps_driver package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.3.1 (2013-05-07)
+-------------------
+* Removed incorrect find_package dependencies
+
 0.3.0 (2013-05-05)
 -------------------
 * Initial release for Hydro

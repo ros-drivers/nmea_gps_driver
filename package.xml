@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>nmea_gps_driver</name>
-  <version>0.3.0</version>
+  <version>0.3.1</version>
   <description>
 	Package to parse NMEA strings and publish a very simple GPS messgae. Does not require the GPSD deamon.
   </description>
