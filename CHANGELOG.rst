@@ -2,6 +2,10 @@
 Change log for nmea_gps_driver package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.3.2 (2013-07-21)
+-------------------
+* Moved all new functionaliaty to nmea_navsat_driver and nmea_msgs packages. nmea_gps_driver will be removed in Indigo.
+
 0.3.1 (2013-05-07)
 -------------------
 * Removed incorrect find_package dependencies

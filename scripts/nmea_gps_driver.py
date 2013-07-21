@@ -38,8 +38,8 @@ from sensor_msgs.msg import NavSatStatus
 from sensor_msgs.msg import TimeReference
 from geometry_msgs.msg import TwistStamped
 
-from libnmea_gps_driver.checksum_utils import check_nmea_checksum
-import libnmea_gps_driver.parser
+from libnmea_navsat_driver.checksum_utils import check_nmea_checksum
+import libnmea_navsat_driver.parser
 
 import serial, string, math, time, calendar
 
@@ -71,7 +71,7 @@ def addTFPrefix(frame_id):
 if __name__ == "__main__":
     #init publisher
     rospy.init_node('nmea_gps_driver')
-    rospy.logwarn("nmea_gps_driver.py is deprecated and planned for removal in I-Turtle. Use nmea_serial_driver.py instead. See ros.org/wiki/nmea_gps_driver for more details.")
+    rospy.logwarn("nmea_gps_driver.py is deprecated and planned for removal in I-Turtle. Use nmea_navsat_driver nmea_serial_driver instead. See ros.org/wiki/nmea_gps_driver for more details.")
     gpspub = rospy.Publisher('fix', NavSatFix)
     gpsVelPub = rospy.Publisher('vel',TwistStamped)
     gpstimePub = rospy.Publisher('time_reference', TimeReference)

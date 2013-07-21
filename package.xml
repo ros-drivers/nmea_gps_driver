@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>nmea_gps_driver</name>
-  <version>0.3.1</version>
+  <version>0.3.2</version>
   <description>
 	Package to parse NMEA strings and publish a very simple GPS messgae. Does not require the GPSD deamon.
   </description>
@@ -43,21 +43,17 @@
   <!-- Use test_depend for packages you need only for testing: -->
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>std_msgs</build_depend>
-  <build_depend>message_generation</build_depend>
+  <run_depend>nmea_navsat_driver</run_depend>
   <run_depend>geometry_msgs</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>sensor_msgs</run_depend>
-  <run_depend>std_msgs</run_depend>
   <run_depend>python-serial</run_depend>
   <run_depend>message_runtime</run_depend>
-
-
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
     <!-- This is a pure Python package, so mark it architecture independent -->
-    <!-- <architecture_independent/> -->
+    <architecture_independent/>
 
     <!-- You can specify that this package is a metapackage here: -->
     <!-- <metapackage/> -->
