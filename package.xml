@@ -59,6 +59,9 @@
     <!-- <metapackage/> -->
 
     <!-- Other tools can request additional information be placed here -->
+    <deprecated>
+        This package will be removed in ROS Indigo. The nmea_navsat_driver package replaces this package. The nmea_serial_driver node contained in that package should be a dropin replacement for nmea_gps_driver.py .
+    </deprecated>
 
   </export>
 </package>
